@@ -1,0 +1,40 @@
+{
+  "updated": "2026-10-22",
+  "source": "php.net security advisories and NVD",
+  "min_safe_patch": {
+    "8.2": "8.2.35",
+    "8.3": "8.3.36",
+    "8.4": "8.4.27",
+    "8.5": "8.5.12"
+  },
+  "eol_branches": {
+    "5.6": "2018-12-31", "7.0": "2018-12-03", "7.1": "2019-12-01",
+    "7.2": "2020-11-30", "7.3": "2021-12-06", "7.4": "2022-11-28",
+    "8.0": "2023-11-26", "8.1": "2025-12-31"
+  },
+  "cves": [
+    {
+      "id": "CVE-2026-109618",
+      "severity": "Critical",
+      "title": "RCE via out-of-memory corruption",
+      "affected": "<8.2.35, 8.3.0-8.3.35, 8.4.0-8.4.26, 8.5.0-8.5.11",
+      "fixed": {"8.2": "8.2.35", "8.3": "8.3.36", "8.4": "8.4.27", "8.5": "8.5.12"},
+      "description": "Out-of-memory handling can interrupt PHP while internal request data is only partially initialized; request cleanup may then treat invalid data as valid, enabling unauthenticated remote code execution. Highest risk under mod_php.",
+      "ref": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w"
+    },
+    {
+      "id": "CVE-2026-109619",
+      "severity": "Critical",
+      "title": "RCE via stale global state",
+      "affected": "<8.2.35, 8.3.0-8.3.35, 8.4.0-8.4.26, 8.5.0-8.5.11",
+      "fixed": {"8.2": "8.2.35", "8.3": "8.3.36", "8.4": "8.4.27", "8.5": "8.5.12"},
+      "description": "Request-owned internal state can survive after its backing memory is freed; a later request on the same worker may use that stale state before initialization resets it, enabling unauthenticated remote code execution.",
+      "ref": "https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp"
+    }
+  ],
+  "partial_mitigations": [
+    "session.upload_progress.enabled = 0",
+    "memory_limit = -1"
+  ],
+  "note": "Partial mitigations do not make an installation safe. Updating to the patched version is the only complete fix."
+}

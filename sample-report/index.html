@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PHP Vulnerability Report</title><style>
+:root{--bg:#f3f4f7;--card:#fff;--ink:#151a2c;--mut:#5b6278;--line:#dcdfe7;--soft:#eef0f4;--crit:#c8432b;--high:#c2691b;--med:#b07a00;--low:#5b6278;--ok:#17865f;--acc:#6b46c1}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1220;--card:#181c2e;--ink:#e9ecf4;--mut:#9ca3ba;--line:#2a3048;--soft:#1f2438;--crit:#f07a62;--high:#f0a05f;--med:#e7b43b;--low:#9ca3ba;--ok:#3fc48d;--acc:#a78bfa;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Segoe UI",system-ui,sans-serif}
+.w{max-width:1040px;margin:0 auto;padding:28px 20px 60px}
+header{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:18px}
+h1{margin:0;font-size:1.7rem;letter-spacing:-.02em}.sub{color:var(--mut);font-size:.82rem}.mono{font-family:Consolas,ui-monospace,monospace;font-size:.8rem;color:var(--mut)}
+.top{display:grid;grid-template-columns:220px 1fr;gap:16px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.score{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}.score svg{width:140px;height:140px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.kpi{background:var(--soft);border-radius:10px;padding:12px}.kpi b{display:block;font-size:1.6rem;font-variant-numeric:tabular-nums}.kpi span{font-size:.74rem;color:var(--mut)}
+.kpi.crit b{color:var(--crit)}.kpi.high b{color:var(--high)}.kpi.med b{color:var(--med)}.kpi.low b{color:var(--low)}.kpi.info b{color:var(--mut)}
+h2{font-size:1.2rem;margin:22px 0 10px}
+details.f{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--low);border-radius:10px;margin-bottom:8px}
+details.f.critical{border-left-color:var(--crit)}details.f.high{border-left-color:var(--high)}details.f.medium{border-left-color:var(--med)}details.f.info{border-left-color:var(--mut)}
+summary{display:grid;grid-template-columns:74px 90px 1fr auto;gap:12px;align-items:center;padding:12px 16px;cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}
+.pill{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:999px;color:#fff;text-align:center}
+.pill.critical{background:var(--crit)}.pill.high{background:var(--high)}.pill.medium{background:var(--med)}.pill.low{background:var(--low)}.pill.info{background:var(--soft);color:var(--mut)}
+.rule{font-family:Consolas,ui-monospace,monospace;font-size:.78rem;color:var(--mut)}.ttl{font-weight:600}.cwe{font-size:.7rem;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.body{padding:0 16px 16px 180px}.loc{font-family:Consolas,ui-monospace,monospace;font-size:.82rem;color:var(--mut);margin-bottom:6px}
+.snip{background:var(--soft);border-radius:8px;padding:10px 12px;overflow-x:auto;font-size:.8rem;margin:0 0 8px}
+.rec{font-size:.88rem}.lbl{display:inline-block;font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);margin-right:6px}
+footer{margin-top:24px;font-size:.8rem;color:var(--mut)}
+@media (max-width:720px){.top{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(3,1fr)}summary{grid-template-columns:64px 1fr}.rule,.cwe{display:none}.body{padding:0 16px 16px}}
+</style></head><body><div class="w">
+<header><div><div class="mono">PHP VULNERABILITY SCAN</div><h1>Scan Report</h1><div class="sub">2026-10-23 00:01 UTC &middot; PHP 8.3.20 &middot; 1 file(s) scanned</div></div><div class="mono">php-vuln-scanner v1.0.0</div></header>
+<div class="top">
+<div class="card score"><svg viewBox="0 0 120 120" role="img" aria-label="Score 0"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--soft)" stroke-width="10"/><circle cx="60" cy="60" r="52" fill="none" stroke="var(--crit)" stroke-width="10" stroke-linecap="round" stroke-dasharray="0.0 400" transform="rotate(-90 60 60)"/><text x="60" y="58" text-anchor="middle" font-size="30" font-weight="700" fill="var(--ink)">0</text><text x="60" y="78" text-anchor="middle" font-size="11" fill="var(--mut)">/ 100</text></svg><span class="mono">security score</span></div>
+<div class="card"><div class="kpis">
+<div class="kpi crit"><b>6</b><span>Critical</span></div>
+<div class="kpi high"><b>6</b><span>High</span></div>
+<div class="kpi med"><b>1</b><span>Medium</span></div>
+<div class="kpi low"><b>0</b><span>Low</span></div>
+<div class="kpi info"><b>0</b><span>Info</span></div>
+</div></div></div>
+<h2>Findings</h2>
+<details class="f critical" open>
+<summary><span class="pill critical">Critical</span><span class="rule">SQLI-02</span><span class="ttl">Request data concatenated into SQL string</span><span class="cwe">CWE-89</span></summary>
+<div class="body"><div class="loc">index.php:4</div><pre class="snip">$result = mysqli_query($conn, &quot;SELECT * FROM users WHERE id = &quot; . $_GET[&#x27;id&#x27;]);</pre><div class="rec"><span class="lbl">Fix</span>Parameterize the query. Do not build SQL by concatenating superglobals.</div></div></details>
+<details class="f critical" open>
+<summary><span class="pill critical">Critical</span><span class="rule">CMDI-01</span><span class="ttl">Possible OS command injection</span><span class="cwe">CWE-78</span></summary>
+<div class="body"><div class="loc">index.php:6</div><pre class="snip">system(&quot;ping &quot; . $_POST[&#x27;host&#x27;]);</pre><div class="rec"><span class="lbl">Fix</span>Avoid passing user input to shell functions. If unavoidable, use escapeshellarg()/escapeshellcmd() and an allowlist.</div></div></details>
+<details class="f critical" open>
+<summary><span class="pill critical">Critical</span><span class="rule">RFI-01</span><span class="ttl">Possible remote/local file inclusion</span><span class="cwe">CWE-98</span></summary>
+<div class="body"><div class="loc">index.php:7</div><pre class="snip">include($_GET[&#x27;page&#x27;] . &quot;.php&quot;);</pre><div class="rec"><span class="lbl">Fix</span>Never include a path built from user input. Use a fixed allowlist of includable files.</div></div></details>
+<details class="f critical" open>
+<summary><span class="pill critical">Critical</span><span class="rule">CODE-01</span><span class="ttl">Dynamic code execution (eval) with request data</span><span class="cwe">CWE-95</span></summary>
+<div class="body"><div class="loc">index.php:13</div><pre class="snip">eval($_REQUEST[&#x27;cmd&#x27;]);</pre><div class="rec"><span class="lbl">Fix</span>Never eval() user input. Redesign to avoid dynamic code execution.</div></div></details>
+<details class="f critical" open>
+<summary><span class="pill critical">Critical</span><span class="rule">CVE-2026-109618</span><span class="ttl">RCE via out-of-memory corruption</span></summary>
+<div class="body"><div class="loc">PHP 8.3.20</div><div class="rec"><span class="lbl">Fix</span>Update to PHP 8.3.36 or later.  Reference: https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w</div></div></details>
+<details class="f critical" open>
+<summary><span class="pill critical">Critical</span><span class="rule">CVE-2026-109619</span><span class="ttl">RCE via stale global state</span></summary>
+<div class="body"><div class="loc">PHP 8.3.20</div><div class="rec"><span class="lbl">Fix</span>Update to PHP 8.3.36 or later.  Reference: https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp</div></div></details>
+<details class="f high">
+<summary><span class="pill high">High</span><span class="rule">XSS-01</span><span class="ttl">Possible reflected XSS (echo of request data)</span><span class="cwe">CWE-79</span></summary>
+<div class="body"><div class="loc">index.php:5</div><pre class="snip">echo &quot;Welcome &quot; . $_GET[&#x27;name&#x27;];</pre><div class="rec"><span class="lbl">Fix</span>Encode output with htmlspecialchars(..., ENT_QUOTES) or a templating engine with auto-escaping.</div></div></details>
+<details class="f high">
+<summary><span class="pill high">High</span><span class="rule">DESER-01</span><span class="ttl">Insecure deserialization of request data</span><span class="cwe">CWE-502</span></summary>
+<div class="body"><div class="loc">index.php:8</div><pre class="snip">$data = unserialize($_COOKIE[&#x27;prefs&#x27;]);</pre><div class="rec"><span class="lbl">Fix</span>Do not unserialize() untrusted input. Use json_decode() for data interchange.</div></div></details>
+<details class="f high">
+<summary><span class="pill high">High</span><span class="rule">CRYPTO-01</span><span class="ttl">Weak hashing algorithm</span><span class="cwe">CWE-327</span></summary>
+<div class="body"><div class="loc">index.php:9</div><pre class="snip">$hash = md5($password);</pre><div class="rec"><span class="lbl">Fix</span>Use password_hash()/password_verify() for passwords, and SHA-256+ for integrity.</div></div></details>
+<details class="f high">
+<summary><span class="pill high">High</span><span class="rule">SECRET-01</span><span class="ttl">Hardcoded credential or secret</span><span class="cwe">CWE-798</span></summary>
+<div class="body"><div class="loc">index.php:11</div><pre class="snip">$apikey = &quot;sk_live_1234567890abcdef&quot;;</pre><div class="rec"><span class="lbl">Fix</span>Move secrets to environment variables or a secrets manager; never commit them.</div></div></details>
+<details class="f high">
+<summary><span class="pill high">High</span><span class="rule">SSL-01</span><span class="ttl">TLS certificate verification disabled</span><span class="cwe">CWE-295</span></summary>
+<div class="body"><div class="loc">index.php:12</div><pre class="snip">curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);</pre><div class="rec"><span class="lbl">Fix</span>Leave CURLOPT_SSL_VERIFYPEER/HOST enabled; fix the trust store instead of disabling verification.</div></div></details>
+<details class="f high">
+<summary><span class="pill high">High</span><span class="rule">CODE-02</span><span class="ttl">Use of eval()</span><span class="cwe">CWE-95</span></summary>
+<div class="body"><div class="loc">index.php:13</div><pre class="snip">eval($_REQUEST[&#x27;cmd&#x27;]);</pre><div class="rec"><span class="lbl">Fix</span>Avoid eval() entirely; it is almost always replaceable with safer constructs.</div></div></details>
+<details class="f medium">
+<summary><span class="pill medium">Medium</span><span class="rule">CRYPTO-02</span><span class="ttl">Insecure randomness for security use</span><span class="cwe">CWE-338</span></summary>
+<div class="body"><div class="loc">index.php:10</div><pre class="snip">$token = mt_rand();</pre><div class="rec"><span class="lbl">Fix</span>Use random_bytes() or random_int() for tokens, IDs and secrets.</div></div></details>
+<footer>Pattern-based scan: review each finding in context, as automated rules can flag safe code. Version data from the bundled CVE database; re-check against php.net for the latest advisories. Generated by php-vuln-scanner &middot; github.com/aayyagar/php-vuln-scanner</footer>
+</div></body></html>

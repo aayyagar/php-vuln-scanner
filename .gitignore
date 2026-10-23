@@ -1,0 +1,4 @@
+_demo_src/
+__pycache__/
+*.pyc
+report.html
